@@ -1,6 +1,14 @@
 package recursion.view;
 
-import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.SpringLayout;
+
 import recursion.controller.RecursionController;
 
 public class RecursionPanel extends JPanel
@@ -11,6 +19,7 @@ public class RecursionPanel extends JPanel
 	JTextArea textArea;
 	JTextField textField;
 	SpringLayout baseLayout;
+
 	public RecursionPanel(RecursionController baseController)
 	{
 		this.baseController = baseController;
@@ -19,10 +28,13 @@ public class RecursionPanel extends JPanel
 		this.textArea = new JTextArea("TextArea");
 		this.textField = new JTextField("TextField");
 		this.baseLayout = new SpringLayout();
+		this.textArea.setEnabled(false);
+		this.textArea.setEditable(false);
 		setupPanel();
 		setupLayout();
 		setupListeners();
 	}
+
 	private void setupPanel()
 	{
 		this.setLayout(baseLayout);
@@ -31,6 +43,7 @@ public class RecursionPanel extends JPanel
 		this.add(textArea);
 		this.add(textField);
 	}
+
 	private void setupLayout()
 	{
 		baseLayout.putConstraint(SpringLayout.NORTH, textArea, 0, SpringLayout.NORTH, firstButton);
@@ -45,8 +58,19 @@ public class RecursionPanel extends JPanel
 		baseLayout.putConstraint(SpringLayout.SOUTH, secondButton, -24, SpringLayout.NORTH, textField);
 		baseLayout.putConstraint(SpringLayout.SOUTH, textField, -51, SpringLayout.SOUTH, this);
 	}
+
 	private void setupListeners()
 	{
-		
+		firstButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if (baseController.stringIsInt(textField.getText()))
+				{
+					textArea.setText(Integer.toString(baseController.calculateFactorial(Integer.parseInt(textField.getText()))));
+				}
+			}
+		});
 	}
+
 }

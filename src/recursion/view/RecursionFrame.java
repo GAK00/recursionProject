@@ -10,6 +10,7 @@ public class RecursionFrame extends JFrame
 	public RecursionFrame(RecursionController baseController)
 	{
 		super();
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.baseController = baseController;
 		this.panel = new RecursionPanel(baseController);
 		setup();
