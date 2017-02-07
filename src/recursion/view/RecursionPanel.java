@@ -1,5 +1,6 @@
 package recursion.view;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -23,10 +24,10 @@ public class RecursionPanel extends JPanel
 	public RecursionPanel(RecursionController baseController)
 	{
 		this.baseController = baseController;
-		this.firstButton = new JButton("First");
-		this.secondButton = new JButton("Second");
-		this.textArea = new JTextArea("TextArea");
-		this.textField = new JTextField("TextField");
+		this.firstButton = new JButton("Calculate Factorial");
+		this.secondButton = new JButton("Calculate Fibonacci");
+		this.textArea = new JTextArea("Output");
+		this.textField = new JTextField("Input");
 		this.baseLayout = new SpringLayout();
 		this.textArea.setEnabled(false);
 		this.textArea.setEditable(false);
@@ -42,21 +43,23 @@ public class RecursionPanel extends JPanel
 		this.add(secondButton);
 		this.add(textArea);
 		this.add(textField);
+		this.setBackground(Color.magenta);
 	}
 
 	private void setupLayout()
 	{
-		baseLayout.putConstraint(SpringLayout.NORTH, textArea, 0, SpringLayout.NORTH, firstButton);
-		baseLayout.putConstraint(SpringLayout.WEST, textArea, 52, SpringLayout.EAST, firstButton);
-		baseLayout.putConstraint(SpringLayout.SOUTH, textArea, 0, SpringLayout.SOUTH, secondButton);
-		baseLayout.putConstraint(SpringLayout.EAST, textArea, 0, SpringLayout.EAST, textField);
-		baseLayout.putConstraint(SpringLayout.WEST, secondButton, 14, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.NORTH, firstButton, 24, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, textArea, 30, SpringLayout.EAST, firstButton);
+		baseLayout.putConstraint(SpringLayout.WEST, secondButton, 15, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, firstButton, 25, SpringLayout.NORTH, this);
 		baseLayout.putConstraint(SpringLayout.WEST, firstButton, 0, SpringLayout.WEST, secondButton);
-		baseLayout.putConstraint(SpringLayout.WEST, textField, 24, SpringLayout.WEST, this);
-		baseLayout.putConstraint(SpringLayout.EAST, textField, -32, SpringLayout.EAST, this);
-		baseLayout.putConstraint(SpringLayout.SOUTH, secondButton, -24, SpringLayout.NORTH, textField);
-		baseLayout.putConstraint(SpringLayout.SOUTH, textField, -51, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.WEST, textField, 25, SpringLayout.WEST, this);
+		baseLayout.putConstraint(SpringLayout.EAST, textField, -30, SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, secondButton, -25, SpringLayout.NORTH, textField);
+		baseLayout.putConstraint(SpringLayout.SOUTH, textField, -50, SpringLayout.SOUTH, this);
+		baseLayout.putConstraint(SpringLayout.NORTH, textArea, 25, SpringLayout.NORTH, this);
+		baseLayout.putConstraint(SpringLayout.SOUTH, textArea, -25, SpringLayout.NORTH, textField);
+		baseLayout.putConstraint(SpringLayout.EAST, textArea, -30, SpringLayout.EAST, this);
+		baseLayout.putConstraint(SpringLayout.EAST, firstButton, 140, SpringLayout.WEST, secondButton);
 	}
 
 	private void setupListeners()
@@ -65,10 +68,21 @@ public class RecursionPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if (baseController.stringIsInt(textField.getText()))
-				{
-					textArea.setText(Integer.toString(baseController.calculateFactorial(Integer.parseInt(textField.getText()))));
-				}
+					if (baseController.stringIsInt(textField.getText()))
+					{
+						textArea.setText(baseController.calculateFactorial(Double.parseDouble(textField.getText())));
+					}
+				
+			}
+		});
+		secondButton.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+					if (baseController.stringIsInt(textField.getText()))
+					{
+						textArea.setText(baseController.calculateFibonacci(Double.parseDouble(textField.getText())));
+					}
 			}
 		});
 	}

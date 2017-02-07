@@ -19,7 +19,7 @@ public class RecursionFrame extends JFrame
 	{
 		this.setTitle("Recursion Project");
 		this.setContentPane(panel);
-		this.setSize(500,500);
+		this.setSize(800,400);
 		this.setVisible(true);
 	}
 }

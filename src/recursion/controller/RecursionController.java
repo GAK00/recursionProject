@@ -2,31 +2,49 @@ package recursion.controller;
 
 import javax.swing.JOptionPane;
 
+import recursion.model.IterativeTool;
 import recursion.model.RecursionTool;
+import recursion.model.Timer;
 import recursion.view.RecursionFrame;
 
 public class RecursionController
 {
-	RecursionFrame baseFrame;
-	RecursionTool recursion;
+	private RecursionFrame baseFrame;
+	private RecursionTool recursion;
+	private IterativeTool iterative;
+	private Timer timer;
 	public RecursionController()
 	{
 		baseFrame = new RecursionFrame(this);
 		recursion = new RecursionTool();
+		iterative = new IterativeTool();
+		timer = new Timer();
 	}
 	public void start()
 	{
 		
 	}
-	public int calculateFactorial(int currentNumber)
+	public String calculateFactorial(double currentNumber)
 	{
-		return recursion.calculateFactorial(currentNumber);
+		timer.resetTimer();
+		timer.startTimer();
+		double answer = iterative.calculateFactorial(currentNumber);
+		timer.stopTimer();
+		return"The factorial of "+currentNumber+" is: "+Double.toString(answer)+"\n"+timer;
+	}
+	public String calculateFibonacci(double currentNumber)
+	{
+		timer.resetTimer();
+		timer.startTimer();
+		double answer = recursion.calculateFibonacci(currentNumber);
+		timer.stopTimer();
+		return"The number at the pos of "+currentNumber+" in the Fibonacci sequence is: "+Double.toString(answer)+"\n"+timer;
 	}
 	public boolean stringIsInt(String input)
 	{
 		try
 		{
-			if (Integer.parseInt(input) >= 0)
+			if (Long.parseLong(input) >= 0)
 			{
 				return true;
 			}
