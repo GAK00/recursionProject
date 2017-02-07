@@ -17,6 +17,7 @@ public class RecursionPanel extends JPanel
 	RecursionController baseController;
 	JButton firstButton;
 	JButton secondButton;
+	ToggleButton toggle;
 	JTextArea textArea;
 	JTextField textField;
 	SpringLayout baseLayout;
@@ -26,11 +27,15 @@ public class RecursionPanel extends JPanel
 		this.baseController = baseController;
 		this.firstButton = new JButton("Calculate Factorial");
 		this.secondButton = new JButton("Calculate Fibonacci");
+		this.toggle = new ToggleButton("Recursive", "Iterative");
 		this.textArea = new JTextArea("Output");
 		this.textField = new JTextField("Input");
 		this.baseLayout = new SpringLayout();
+		baseLayout.putConstraint(SpringLayout.WEST, toggle, 0, SpringLayout.WEST, firstButton);
+		baseLayout.putConstraint(SpringLayout.SOUTH, toggle, -52, SpringLayout.NORTH, secondButton);
 		this.textArea.setEnabled(false);
 		this.textArea.setEditable(false);
+		this.textArea.setDisabledTextColor(Color.black);
 		setupPanel();
 		setupLayout();
 		setupListeners();
@@ -41,6 +46,7 @@ public class RecursionPanel extends JPanel
 		this.setLayout(baseLayout);
 		this.add(firstButton);
 		this.add(secondButton);
+		this.add(toggle);
 		this.add(textArea);
 		this.add(textField);
 		this.setBackground(Color.magenta);
@@ -68,23 +74,31 @@ public class RecursionPanel extends JPanel
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-					if (baseController.stringIsInt(textField.getText()))
-					{
-						textArea.setText(baseController.calculateFactorial(Double.parseDouble(textField.getText())));
-					}
-				
+				if (baseController.stringIsInt(textField.getText()))
+				{
+					textArea.setText(baseController.calculateFactorial(Double.parseDouble(textField.getText())));
+				}
+
 			}
 		});
 		secondButton.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-					if (baseController.stringIsInt(textField.getText()))
-					{
-						textArea.setText(baseController.calculateFibonacci(Double.parseDouble(textField.getText())));
-					}
+				if (baseController.stringIsInt(textField.getText()))
+				{
+					textArea.setText(baseController.calculateFibonacci(Double.parseDouble(textField.getText())));
+				}
 			}
 		});
+		toggle.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				baseController.switchTool();
+			}
+		});
+
 	}
 
 }

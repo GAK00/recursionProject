@@ -1,31 +1,33 @@
 package recursion.model;
 
-public class RecursionTool
+public class RecursionTool extends Tool
 {
+	public RecursionTool()
+	{
+		super();
+	}
+
 	public double calculateFactorial(double currentNumber)
 	{
-		if(Double.compare(currentNumber, 0)== 0 || Double.compare(currentNumber, 1)== 0)
+		if (Double.compare(currentNumber, 0) == 0 || Double.compare(currentNumber, 1) == 0)
 		{
 			return 1;
-		}
-		else
+		} else
 		{
-			return (calculateFactorial(currentNumber -1)*currentNumber);
+			return (calculateFactorial(currentNumber - 1) * currentNumber);
 		}
 	}
 	public double calculateFibonacci(double currentNumber)
 	{
-		if(Double.compare(currentNumber, 1)== 0)
+		if (Double.compare(currentNumber, 1) == 0)
 		{
 			return 1;
-		}
-		else if(Double.compare(currentNumber, 0)== 0)
+		} else if (Double.compare(currentNumber, 0) == 0)
 		{
 			return 0;
-		}
-		else
+		} else
 		{
-			return (calculateFibonacci(currentNumber -1)+calculateFibonacci(currentNumber-2));
+			return (calculateFibonacci(currentNumber - 1) + calculateFibonacci(currentNumber - 2));
 		}
 	}
 }
